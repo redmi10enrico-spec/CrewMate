@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrewMate Network — Server Minecraft</title>
+  <meta name="description" content="CrewMate Network: il server Minecraft dove costruire, giocare e crescere insieme alla community.">
+  <link rel="icon" href="assets/img/logo.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container">
+      <img src="assets/img/logo.png" alt="CrewMate Network" class="hero-logo" onerror="this.onerror=null;this.src='assets/img/logo.svg'">
+      <span class="badge badge-green">🟢 Server Online</span>
+      <h1>Benvenuto su<br><span class="text-accent">CrewMate Network</span></h1>
+      <p>Il server Minecraft dove costruire, giocare e crescere insieme a una community appassionata. Unisciti a noi e inizia la tua avventura!</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="document.getElementById('ipCopy').click()">🎮 Gioca Ora</button>
+        <a href="shop.html" class="btn btn-outline btn-lg">🛒 Visita lo Shop</a>
+      </div>
+
+      <!-- STATISTICHE -->
+      <div class="stats-bar">
+        <div class="stat"><span class="num">0</span><span class="label">Giocatori Online</span></div>
+        <div class="stat"><span class="num">1.20+</span><span class="label">Versione</span></div>
+        <div class="stat"><span class="num">0</span><span class="label">Utenti Registrati</span></div>
+        <div class="stat"><span class="num">24/7</span><span class="label">Uptime</span></div>
+      </div>
+    </section>
+
+    <!-- MODALITÀ DI GIOCO -->
+    <section class="section container">
+      <h2 class="section-title text-center mx-auto">Modalità di Gioco</h2>
+      <p class="section-subtitle text-center mx-auto">Scegli come divertirti sul nostro network.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-icon">⛏️</div>
+          <h3>Survival</h3>
+          <p>Sopravvivi, costruisci ed esplora un mondo persistente con economia e protezioni.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🏝️</div>
+          <h3>SkyBlock</h3>
+          <p>Parti da un'isola nel vuoto e crea il tuo impero passo dopo passo.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚔️</div>
+          <h3>Minigames</h3>
+          <p>Sfida gli altri giocatori in tante modalità competitive e frenetiche.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERCHÉ NOI -->
+    <section class="section container">
+      <h2 class="section-title text-center mx-auto">Perché CrewMate?</h2>
+      <p class="section-subtitle text-center mx-auto">Una community sana e un server curato nei dettagli.</p>
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-icon">🛡️</div>
+          <h3>Anti-Cheat</h3>
+          <p>Protezione avanzata contro cheater e griefer.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <h3>Community</h3>
+          <p>Staff attivo e giocatori accoglienti.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Performance</h3>
+          <p>Hardware potente per zero lag.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎁</div>
+          <h3>Eventi</h3>
+          <p>Eventi settimanali con premi esclusivi.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section container text-center">
+      <div class="card" style="max-width:720px;margin:0 auto;">
+        <h2 class="section-title">Pronto a iniziare?</h2>
+        <p class="section-subtitle mx-auto">Entra nel server e diventa parte della crew. Ti aspettiamo!</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="document.getElementById('ipCopy').click()">Copia IP Server</button>
+          <a href="candidature.html" class="btn btn-outline">Candidati nello Staff</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>window.CREWMATE_PAGE = "home";</script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

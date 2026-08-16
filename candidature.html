@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidature — CrewMate Network</title>
+  <meta name="description" content="Candidati per entrare nello staff di CrewMate Network: Helper, Moderatore, Builder e altro.">
+  <link rel="icon" href="assets/img/logo.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <main>
+    <section class="page-header container">
+      <h1>📝 Candidature Staff</h1>
+      <p>Vuoi far parte del team di CrewMate Network? Compila il modulo qui sotto e raccontaci di te!</p>
+    </section>
+
+    <!-- REQUISITI -->
+    <section class="section container" style="padding:24px 0 0;">
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-icon">🎂</div>
+          <h3>Età minima</h3>
+          <p>Devi avere almeno 14 anni per candidarti.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎙️</div>
+          <h3>Discord</h3>
+          <p>Microfono e account Discord attivo richiesti.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⏰</div>
+          <h3>Disponibilità</h3>
+          <p>Almeno qualche ora a settimana sul server.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section class="section container">
+      <form class="form-card" id="applicationForm">
+        <div class="form-alert" id="formAlert"></div>
+
+        <h2 class="section-title" style="font-size:1.1rem;margin-bottom:24px;">Il tuo modulo</h2>
+
+        <!-- Ruolo -->
+        <div class="form-group">
+          <label>Ruolo desiderato <span class="req">*</span></label>
+          <div class="role-grid">
+            <label class="role-option">
+              <input type="radio" name="role" value="helper" required>
+              <span class="role-body"><span class="icon">🤝</span><strong>Helper</strong></span>
+            </label>
+            <label class="role-option">
+              <input type="radio" name="role" value="moderatore">
+              <span class="role-body"><span class="icon">🛡️</span><strong>Moderatore</strong></span>
+            </label>
+            <label class="role-option">
+              <input type="radio" name="role" value="builder">
+              <span class="role-body"><span class="icon">🏗️</span><strong>Builder</strong></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label for="username">Nickname Minecraft <span class="req">*</span></label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Es. Steve123" required>
+          </div>
+          <div class="form-group">
+            <label for="discord">Username Discord <span class="req">*</span></label>
+            <input type="text" id="discord" name="discord" class="form-control" placeholder="Es. steve" required>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="form-group">
+            <label for="age">Età <span class="req">*</span></label>
+            <input type="number" id="age" name="age" class="form-control" min="14" max="99" placeholder="Es. 18" required>
+          </div>
+          <div class="form-group">
+            <label for="hours">Ore disponibili a settimana <span class="req">*</span></label>
+            <select id="hours" name="hours" class="form-control" required>
+              <option value="">Seleziona...</option>
+              <option>1-5 ore</option>
+              <option>5-10 ore</option>
+              <option>10-20 ore</option>
+              <option>20+ ore</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="experience">Hai esperienza come staff? <span class="req">*</span></label>
+          <textarea id="experience" name="experience" class="form-control" placeholder="Raccontaci le tue esperienze precedenti (server, ruoli, ecc.)" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="motivation">Perché vuoi entrare nello staff? <span class="req">*</span></label>
+          <textarea id="motivation" name="motivation" class="form-control" placeholder="Spiegaci le tue motivazioni..." required></textarea>
+          <div class="hint">Minimo 100 caratteri consigliati.</div>
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex;gap:10px;align-items:flex-start;font-weight:400;">
+            <input type="checkbox" name="rules" required style="margin-top:5px;">
+            <span>Ho letto e accetto il <a href="#">regolamento</a> del server. <span class="req">*</span></span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Invia Candidatura</button>
+      </form>
+
+      <p class="text-center" style="margin-top:24px;color:var(--text-dim);">
+        💡 L'invio è in modalità demo — collega un backend (webhook Discord, API o Google Form) in <code>assets/js/main.js</code>.
+      </p>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>window.CREWMATE_PAGE = "candidature";</script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

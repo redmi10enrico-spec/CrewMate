@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — CrewMate Network</title>
+  <meta name="description" content="Supporta il server e sblocca ranghi, kit e vantaggi esclusivi nello shop di CrewMate Network.">
+  <link rel="icon" href="assets/img/logo.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div id="header"></div>
+
+  <main>
+    <section class="page-header container">
+      <h1>🛒 Shop</h1>
+      <p>Supporta il server e sblocca ranghi, kit e vantaggi esclusivi. Ogni acquisto ci aiuta a tenere il server online!</p>
+    </section>
+
+    <section class="section container" style="padding-top:24px;">
+      <!-- FILTRI -->
+      <div class="shop-filters">
+        <button class="filter-chip active" data-filter="all">Tutti</button>
+        <button class="filter-chip" data-filter="rank">Ranghi</button>
+        <button class="filter-chip" data-filter="kit">Kit</button>
+        <button class="filter-chip" data-filter="cosmetic">Cosmetici</button>
+      </div>
+
+      <!-- PRODOTTI -->
+      <div class="grid grid-3">
+        <!-- Rank -->
+        <div class="card shop-card" data-category="rank">
+          <span class="badge rank-tag">Rank</span>
+          <div class="card-icon mx-auto">🥉</div>
+          <h3>VIP</h3>
+          <div class="price">4,99€ <span>/ per sempre</span></div>
+          <ul>
+            <li>Prefix [VIP] in chat</li>
+            <li>2 home extra</li>
+            <li>Accesso a /kit vip</li>
+          </ul>
+          <button class="btn btn-outline btn-block">Acquista</button>
+        </div>
+
+        <div class="card shop-card featured" data-category="rank">
+          <span class="badge badge-green rank-tag">Popolare</span>
+          <div class="card-icon mx-auto">🥈</div>
+          <h3>MVP</h3>
+          <div class="price">9,99€ <span>/ per sempre</span></div>
+          <ul>
+            <li>Tutti i vantaggi VIP</li>
+            <li>Prefix [MVP] colorato</li>
+            <li>5 home extra</li>
+            <li>Effetti particellari</li>
+          </ul>
+          <button class="btn btn-primary btn-block">Acquista</button>
+        </div>
+
+        <div class="card shop-card" data-category="rank">
+          <span class="badge rank-tag">Rank</span>
+          <div class="card-icon mx-auto">🥇</div>
+          <h3>ELITE</h3>
+          <div class="price">19,99€ <span>/ per sempre</span></div>
+          <ul>
+            <li>Tutti i vantaggi MVP</li>
+            <li>Prefix [ELITE] animato</li>
+            <li>Home illimitate</li>
+            <li>Accesso prioritario</li>
+          </ul>
+          <button class="btn btn-outline btn-block">Acquista</button>
+        </div>
+
+        <!-- Kit -->
+        <div class="card shop-card" data-category="kit">
+          <span class="badge rank-tag">Kit</span>
+          <div class="card-icon mx-auto">⚔️</div>
+          <h3>Kit Guerriero</h3>
+          <div class="price">2,99€ <span>/ una tantum</span></div>
+          <ul>
+            <li>Armatura in diamante</li>
+            <li>Spada incantata</li>
+            <li>Pozioni assortite</li>
+          </ul>
+          <button class="btn btn-outline btn-block">Acquista</button>
+        </div>
+
+        <div class="card shop-card" data-category="kit">
+          <span class="badge rank-tag">Kit</span>
+          <div class="card-icon mx-auto">⛏️</div>
+          <h3>Kit Minatore</h3>
+          <div class="price">2,99€ <span>/ una tantum</span></div>
+          <ul>
+            <li>Piccone Fortuna III</li>
+            <li>Set completo di picconi</li>
+            <li>Torce e cibo</li>
+          </ul>
+          <button class="btn btn-outline btn-block">Acquista</button>
+        </div>
+
+        <!-- Cosmetici -->
+        <div class="card shop-card" data-category="cosmetic">
+          <span class="badge rank-tag">Cosmetico</span>
+          <div class="card-icon mx-auto">✨</div>
+          <h3>Pacchetto Particelle</h3>
+          <div class="price">3,99€ <span>/ una tantum</span></div>
+          <ul>
+            <li>20+ effetti particellari</li>
+            <li>Scie personalizzate</li>
+            <li>Ali cosmetiche</li>
+          </ul>
+          <button class="btn btn-outline btn-block">Acquista</button>
+        </div>
+      </div>
+
+      <p class="text-center" style="margin-top:40px;color:var(--text-dim);">
+        💡 I pagamenti reali non sono ancora attivi — questo è lo scheletro dello shop.
+        Collega qui il tuo sistema (Tebex, Craftingstore, ecc.).
+      </p>
+    </section>
+  </main>
+
+  <div id="footer"></div>
+
+  <script>window.CREWMATE_PAGE = "shop";</script>
+  <script src="assets/js/components.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

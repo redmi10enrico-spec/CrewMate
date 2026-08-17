@@ -1,7 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "./database.types";
-import { createPendingOrder, listAllOrders, listUserOrders, markOrderPaid } from "./orders";
+import {
+  createPendingOrder,
+  getOrderById,
+  getOrderItemsWithProducts,
+  listAllOrders,
+  listUserOrders,
+  markOrderDelivered,
+  markOrderPaid,
+} from "./orders";
 
 function mockCreateOrderClient(options: {
   order: { id: string } | null;
@@ -122,5 +130,66 @@ describe("listAllOrders", () => {
 
     expect(from).toHaveBeenCalledWith("orders");
     expect(result).toEqual(rows);
+  });
+});
+
+describe("getOrderById", () => {
+  it("returns the order when found", async () => {
+    const row = { id: "order-1", status: "paid" };
+    const maybeSingle = vi.fn().mockResolvedValue({ data: row, error: null });
+    const eq = vi.fn().mockReturnValue({ maybeSingle });
+    const select = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ select });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    const result = await getOrderById(client, "order-1");
+
+    expect(from).toHaveBeenCalledWith("orders");
+    expect(eq).toHaveBeenCalledWith("id", "order-1");
+    expect(result).toEqual(row);
+  });
+
+  it("returns null when not found", async () => {
+    const maybeSingle = vi.fn().mockResolvedValue({ data: null, error: null });
+    const eq = vi.fn().mockReturnValue({ maybeSingle });
+    const select = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ select });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    expect(await getOrderById(client, "missing")).toBeNull();
+  });
+});
+
+describe("getOrderItemsWithProducts", () => {
+  it("selects order items joined with their product", async () => {
+    const rows = [{ id: "item-1", order_id: "order-1", products: { id: "prod-1", name: "VIP" } }];
+    const eq = vi.fn().mockResolvedValue({ data: rows, error: null });
+    const select = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ select });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    const result = await getOrderItemsWithProducts(client, "order-1");
+
+    expect(from).toHaveBeenCalledWith("order_items");
+    expect(select).toHaveBeenCalledWith("*, products(*)");
+    expect(eq).toHaveBeenCalledWith("order_id", "order-1");
+    expect(result).toEqual(rows);
+  });
+});
+
+describe("markOrderDelivered", () => {
+  it("sets status to delivered with a delivered_at timestamp", async () => {
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ update });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    await markOrderDelivered(client, "order-1");
+
+    expect(from).toHaveBeenCalledWith("orders");
+    expect(update).toHaveBeenCalledWith(
+      expect.objectContaining({ status: "delivered", delivered_at: expect.any(String) })
+    );
+    expect(eq).toHaveBeenCalledWith("id", "order-1");
   });
 });

@@ -1,8 +1,13 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "./database.types";
+import type { ProductRow } from "./shop";
 
 export type OrderRow = Database["public"]["Tables"]["orders"]["Row"];
 export type OrderItemRow = Database["public"]["Tables"]["order_items"]["Row"];
+
+export interface OrderItemWithProduct extends OrderItemRow {
+  products: ProductRow | null;
+}
 
 export interface CartLine {
   productId: string;
@@ -95,4 +100,46 @@ export async function listAllOrders(client: SupabaseClient<Database>): Promise<O
   }
 
   return data ?? [];
+}
+
+export async function getOrderById(
+  client: SupabaseClient<Database>,
+  orderId: string
+): Promise<OrderRow | null> {
+  const { data, error } = await client.from("orders").select("*").eq("id", orderId).maybeSingle();
+
+  if (error) {
+    throw new Error(`getOrderById: ${error.message}`);
+  }
+
+  return data;
+}
+
+export async function getOrderItemsWithProducts(
+  client: SupabaseClient<Database>,
+  orderId: string
+): Promise<OrderItemWithProduct[]> {
+  const { data, error } = await client.from("order_items").select("*, products(*)").eq("order_id", orderId);
+
+  if (error) {
+    throw new Error(`getOrderItemsWithProducts: ${error.message}`);
+  }
+
+  return (data ?? []) as unknown as OrderItemWithProduct[];
+}
+
+/**
+ * Va chiamata con un client service-role dopo che tutti i comandi RCON dei
+ * prodotti dell'ordine sono stati eseguiti con successo (vedi
+ * apps/admin/lib/delivery.ts).
+ */
+export async function markOrderDelivered(client: SupabaseClient<Database>, orderId: string): Promise<void> {
+  const { error } = await client
+    .from("orders")
+    .update({ status: "delivered", delivered_at: new Date().toISOString() })
+    .eq("id", orderId);
+
+  if (error) {
+    throw new Error(`markOrderDelivered: ${error.message}`);
+  }
 }

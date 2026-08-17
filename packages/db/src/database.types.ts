@@ -317,6 +317,54 @@ export interface Database {
         };
         Relationships: [];
       };
+      product_commands: {
+        Row: {
+          id: string;
+          product_id: string;
+          command: string;
+          order: number;
+        };
+        Insert: {
+          id?: string;
+          product_id: string;
+          command: string;
+          order?: number;
+        };
+        Update: {
+          id?: string;
+          product_id?: string;
+          command?: string;
+          order?: number;
+        };
+        Relationships: [];
+      };
+      delivery_logs: {
+        Row: {
+          id: string;
+          order_id: string;
+          command: string;
+          response: string | null;
+          success: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          order_id: string;
+          command: string;
+          response?: string | null;
+          success: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          order_id?: string;
+          command?: string;
+          response?: string | null;
+          success?: boolean;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

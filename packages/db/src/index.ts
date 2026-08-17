@@ -54,5 +54,22 @@ export type {
   ProductWithFeatures,
 } from "./shop";
 
-export { createPendingOrder, listAllOrders, listUserOrders, markOrderPaid } from "./orders";
-export type { CartLine, OrderItemRow, OrderRow } from "./orders";
+export {
+  createPendingOrder,
+  getOrderById,
+  getOrderItemsWithProducts,
+  listAllOrders,
+  listUserOrders,
+  markOrderDelivered,
+  markOrderPaid,
+} from "./orders";
+export type { CartLine, OrderItemRow, OrderItemWithProduct, OrderRow } from "./orders";
+
+export {
+  deleteProductCommand,
+  listDeliveryLogs,
+  listProductCommands,
+  logDelivery,
+  upsertProductCommand,
+} from "./delivery";
+export type { DeliveryLogInput, DeliveryLogRow, ProductCommandInput, ProductCommandRow } from "./delivery";

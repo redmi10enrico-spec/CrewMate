@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Gamepad2, ListTree, Package, Palette, Receipt, Sparkles } from "lucide-react";
+import { ArrowRight, ClipboardList, Gamepad2, ListTree, Package, Palette, Receipt, Sparkles } from "lucide-react";
 import { Card } from "@crewmate/ui";
 
 const SECTIONS = [
@@ -38,6 +38,12 @@ const SECTIONS = [
     icon: Receipt,
     title: "Ordini",
     description: "Storico degli acquisti effettuati.",
+  },
+  {
+    href: "/candidature",
+    icon: ClipboardList,
+    title: "Candidature",
+    description: "Moduli di candidatura e revisione delle candidature ricevute.",
   },
 ];
 

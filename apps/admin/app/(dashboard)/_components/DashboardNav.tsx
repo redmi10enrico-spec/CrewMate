@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  ClipboardList,
   Gamepad2,
   LayoutDashboard,
   ListTree,
@@ -36,6 +37,10 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
       { href: "/prodotti", label: "Prodotti", icon: Package },
       { href: "/ordini", label: "Ordini", icon: Receipt },
     ],
+  },
+  {
+    label: "Candidature",
+    items: [{ href: "/candidature", label: "Moduli & Revisione", icon: ClipboardList }],
   },
 ];
 

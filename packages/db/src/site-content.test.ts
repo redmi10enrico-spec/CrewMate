@@ -9,6 +9,8 @@ import {
   getSiteSettings,
   listHomeFeatures,
   listServerModes,
+  setHomeFeatureEnabled,
+  setServerModeEnabled,
   upsertHomeFeature,
   upsertServerMode,
   upsertSiteSettings,
@@ -201,6 +203,32 @@ describe("deleteServerMode", () => {
   });
 });
 
+describe("setServerModeEnabled", () => {
+  it("updates only the enabled column", async () => {
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ update });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    await setServerModeEnabled(client, "mode-1", false);
+
+    expect(from).toHaveBeenCalledWith("server_modes");
+    expect(update).toHaveBeenCalledWith({ enabled: false });
+    expect(eq).toHaveBeenCalledWith("id", "mode-1");
+  });
+
+  it("throws when Supabase returns an error", async () => {
+    const eq = vi.fn().mockResolvedValue({ error: { message: "boom" } });
+    const update = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ update });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    await expect(setServerModeEnabled(client, "mode-1", false)).rejects.toThrow(
+      "setServerModeEnabled: boom"
+    );
+  });
+});
+
 describe("listHomeFeatures", () => {
   it("selects all rows ordered by 'order', enabled or not", async () => {
     const rows = [{ id: "1", title: "Anti-Cheat", enabled: false }];
@@ -242,6 +270,21 @@ describe("deleteHomeFeature", () => {
     await deleteHomeFeature(client, "feature-1");
 
     expect(from).toHaveBeenCalledWith("home_features");
+    expect(eq).toHaveBeenCalledWith("id", "feature-1");
+  });
+});
+
+describe("setHomeFeatureEnabled", () => {
+  it("updates only the enabled column", async () => {
+    const eq = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq });
+    const from = vi.fn().mockReturnValue({ update });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    await setHomeFeatureEnabled(client, "feature-1", true);
+
+    expect(from).toHaveBeenCalledWith("home_features");
+    expect(update).toHaveBeenCalledWith({ enabled: true });
     expect(eq).toHaveBeenCalledWith("id", "feature-1");
   });
 });

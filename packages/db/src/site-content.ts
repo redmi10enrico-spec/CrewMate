@@ -96,6 +96,21 @@ export async function deleteServerMode(client: SupabaseClient<Database>, id: str
   }
 }
 
+// Update mirato (non upsert): un upsert con solo {id, enabled} violerebbe i
+// vincoli NOT NULL su name/slug/description perché Postgres valida la riga
+// costruita per l'INSERT prima ancora di rilevare il conflitto.
+export async function setServerModeEnabled(
+  client: SupabaseClient<Database>,
+  id: string,
+  enabled: boolean
+): Promise<void> {
+  const { error } = await client.from("server_modes").update({ enabled }).eq("id", id);
+
+  if (error) {
+    throw new Error(`setServerModeEnabled: ${error.message}`);
+  }
+}
+
 export async function listHomeFeatures(client: SupabaseClient<Database>): Promise<HomeFeatureRow[]> {
   const { data, error } = await client.from("home_features").select("*").order("order", { ascending: true });
 
@@ -124,5 +139,17 @@ export async function deleteHomeFeature(client: SupabaseClient<Database>, id: st
 
   if (error) {
     throw new Error(`deleteHomeFeature: ${error.message}`);
+  }
+}
+
+export async function setHomeFeatureEnabled(
+  client: SupabaseClient<Database>,
+  id: string,
+  enabled: boolean
+): Promise<void> {
+  const { error } = await client.from("home_features").update({ enabled }).eq("id", id);
+
+  if (error) {
+    throw new Error(`setHomeFeatureEnabled: ${error.message}`);
   }
 }

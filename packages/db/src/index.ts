@@ -20,6 +20,8 @@ export {
   getSiteSettings,
   listHomeFeatures,
   listServerModes,
+  setHomeFeatureEnabled,
+  setServerModeEnabled,
   upsertHomeFeature,
   upsertServerMode,
   upsertSiteSettings,

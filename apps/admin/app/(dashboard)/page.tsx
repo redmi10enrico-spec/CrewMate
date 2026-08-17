@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Gamepad2, Palette, Sparkles } from "lucide-react";
+import { ArrowRight, Gamepad2, ListTree, Package, Palette, Receipt, Sparkles } from "lucide-react";
 import { Card } from "@crewmate/ui";
 
 const SECTIONS = [
@@ -21,6 +21,24 @@ const SECTIONS = [
     title: "Perché sceglierci",
     description: "Le card della sezione \"Perché CrewMate?\" nella Home.",
   },
+  {
+    href: "/categorie",
+    icon: ListTree,
+    title: "Categorie",
+    description: "Raggruppano i prodotti dello Shop.",
+  },
+  {
+    href: "/prodotti",
+    icon: Package,
+    title: "Prodotti",
+    description: "Ranghi, kit e cosmetici in vendita.",
+  },
+  {
+    href: "/ordini",
+    icon: Receipt,
+    title: "Ordini",
+    description: "Storico degli acquisti effettuati.",
+  },
 ];
 
 export default function DashboardPage() {
@@ -29,7 +47,7 @@ export default function DashboardPage() {
       <h1 className="text-2xl font-semibold tracking-tight text-text">Dashboard</h1>
       <p className="mt-2 text-text-muted">Da qui gestirai tutti i contenuti del sito pubblico.</p>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-3">
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
         {SECTIONS.map((section) => (
           <Link key={section.href} href={section.href}>
             <Card interactive icon={<section.icon />} title={section.title}>

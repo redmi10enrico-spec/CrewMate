@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getProfile } from "@crewmate/db";
 import { Badge, Button, Card, Container, SectionTitle } from "@crewmate/ui";
-import { KeyRound, LogOut, ShieldAlert, ShieldCheck } from "lucide-react";
+import { KeyRound, LogOut, Package, ShieldAlert, ShieldCheck } from "lucide-react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { signOut } from "../(auth)/actions";
 import { requestMcVerificationCode } from "./actions";
@@ -67,7 +68,15 @@ export default async function AccountPage({
             </div>
           ) : null}
 
-          <form action={signOut} className="mt-6 border-t border-border pt-6">
+          <div className="mt-6 border-t border-border pt-6">
+            <Link href="/account/ordini">
+              <Button variant="secondary" className="w-full" icon={<Package className="size-4" aria-hidden />}>
+                I tuoi ordini
+              </Button>
+            </Link>
+          </div>
+
+          <form action={signOut} className="mt-3">
             <Button
               type="submit"
               variant="ghost"

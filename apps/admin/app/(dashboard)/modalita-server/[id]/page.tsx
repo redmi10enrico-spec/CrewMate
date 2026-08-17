@@ -2,13 +2,13 @@ import { notFound } from "next/navigation";
 import { Pencil } from "lucide-react";
 import { listServerModes } from "@crewmate/db";
 import { Card } from "@crewmate/ui";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service";
 import { ServerModeForm } from "../_components/ServerModeForm";
 
 export default async function EditServerModePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const supabase = await createSupabaseServerClient();
-  const modes = await listServerModes(supabase);
+  const service = createServiceRoleClient();
+  const modes = await listServerModes(service);
   const mode = modes.find((item) => item.id === id);
 
   if (!mode) {

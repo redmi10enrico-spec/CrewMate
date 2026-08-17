@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getCurrentUser } from "@/lib/auth";
 import { getPublicSiteSettings } from "@/lib/site-content";
+import { CartLink } from "./CartLink";
 import { IpCopyButton } from "./IpCopyButton";
 import { Logo } from "./Logo";
 import { SiteNav } from "./SiteNav";
@@ -18,6 +19,7 @@ export async function SiteHeader() {
         <SiteNav />
         <div className="flex items-center gap-3">
           <IpCopyButton serverIp={settings.server_ip} className="hidden sm:inline-flex" />
+          <CartLink />
           <Link
             href={user ? "/account" : "/login"}
             className="inline-flex h-10 items-center gap-1.5 rounded-sm bg-accent px-4 text-sm font-medium text-bg-950 transition-colors duration-150 hover:bg-accent-hover"

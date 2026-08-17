@@ -1,77 +1,20 @@
-import { Award, Check, Crown, Info, Medal, Pickaxe, Sparkles, Sword } from "lucide-react";
-import type { ComponentType } from "react";
-import { Badge, Button, Card, Container } from "@crewmate/ui";
+import { Award, Check, Info, Package, Sparkles, Sword, type LucideIcon } from "lucide-react";
+import { Badge, Card, Container } from "@crewmate/ui";
+import { AddToCartButton } from "@/components/AddToCartButton";
+import { getShopContent } from "@/lib/shop-content";
 
-interface ShopProduct {
-  id: string;
-  badge: string;
-  icon: ComponentType<{ className?: string }>;
-  name: string;
-  price: string;
-  priceNote: string;
-  features: string[];
-  featured?: boolean;
-}
+export const revalidate = 60;
 
-const PRODUCTS: ShopProduct[] = [
-  {
-    id: "vip",
-    badge: "Rank",
-    icon: Medal,
-    name: "VIP",
-    price: "4,99€",
-    priceNote: "per sempre",
-    features: ["Prefix [VIP] in chat", "2 home extra", "Accesso a /kit vip"],
-  },
-  {
-    id: "mvp",
-    badge: "Popolare",
-    icon: Award,
-    name: "MVP",
-    price: "9,99€",
-    priceNote: "per sempre",
-    features: ["Tutti i vantaggi VIP", "Prefix [MVP] colorato", "5 home extra", "Effetti particellari"],
-    featured: true,
-  },
-  {
-    id: "elite",
-    badge: "Rank",
-    icon: Crown,
-    name: "ELITE",
-    price: "19,99€",
-    priceNote: "per sempre",
-    features: ["Tutti i vantaggi MVP", "Prefix [ELITE] animato", "Home illimitate", "Accesso prioritario"],
-  },
-  {
-    id: "kit-guerriero",
-    badge: "Kit",
-    icon: Sword,
-    name: "Kit Guerriero",
-    price: "2,99€",
-    priceNote: "una tantum",
-    features: ["Armatura in diamante", "Spada incantata", "Pozioni assortite"],
-  },
-  {
-    id: "kit-minatore",
-    badge: "Kit",
-    icon: Pickaxe,
-    name: "Kit Minatore",
-    price: "2,99€",
-    priceNote: "una tantum",
-    features: ["Piccone Fortuna III", "Set completo di picconi", "Torce e cibo"],
-  },
-  {
-    id: "particelle",
-    badge: "Cosmetico",
-    icon: Sparkles,
-    name: "Pacchetto Particelle",
-    price: "3,99€",
-    priceNote: "una tantum",
-    features: ["20+ effetti particellari", "Scie personalizzate", "Ali cosmetiche"],
-  },
-];
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  ranghi: Award,
+  kit: Sword,
+  cosmetici: Sparkles,
+};
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const { categories, products } = await getShopContent();
+  const categoryById = new Map(categories.map((category) => [category.id, category]));
+
   return (
     <Container>
       <div className="py-16 text-center">
@@ -83,37 +26,50 @@ export default function ShopPage() {
       </div>
 
       <div className="grid gap-5 pb-8 sm:grid-cols-2 md:grid-cols-3">
-        {PRODUCTS.map((product) => (
-          <Card
-            key={product.id}
-            interactive
-            icon={<product.icon />}
-            className={product.featured ? "border-accent/50" : undefined}
-          >
-            <Badge tone={product.featured ? "accent" : "neutral"}>{product.badge}</Badge>
-            <h3 className="mt-3 text-base font-semibold text-text">{product.name}</h3>
-            <p className="mt-2 text-xl font-semibold text-text">
-              {product.price} <span className="text-sm font-normal text-text-muted">/ {product.priceNote}</span>
-            </p>
-            <ul className="my-5 flex flex-col gap-2 text-sm text-text-muted">
-              {product.features.map((feature) => (
-                <li key={feature} className="flex items-center gap-2">
-                  <Check className="size-4 shrink-0 text-success" aria-hidden />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-            <Button variant={product.featured ? "primary" : "secondary"} className="w-full">
-              Acquista
-            </Button>
-          </Card>
-        ))}
+        {products.map((product) => {
+          const category = product.category_id ? categoryById.get(product.category_id) : undefined;
+          const Icon = (category && CATEGORY_ICONS[category.slug]) || Package;
+          const features = [...product.product_features].sort((a, b) => a.order - b.order);
+
+          return (
+            <Card
+              key={product.id}
+              interactive
+              icon={<Icon />}
+              className={product.featured ? "border-accent/50" : undefined}
+            >
+              <Badge tone={product.featured ? "accent" : "neutral"}>
+                {product.featured ? "Popolare" : (category?.name ?? "Prodotto")}
+              </Badge>
+              <h3 className="mt-3 text-base font-semibold text-text">{product.name}</h3>
+              <p className="mt-1 text-text-dim">{product.description}</p>
+              <p className="mt-2 text-xl font-semibold text-text">
+                {product.price.toFixed(2)}€ <span className="text-sm font-normal text-text-muted">/ acquisto</span>
+              </p>
+              <ul className="my-5 flex flex-col gap-2 text-sm text-text-muted">
+                {features.map((f) => (
+                  <li key={f.id} className="flex items-center gap-2">
+                    <Check className="size-4 shrink-0 text-success" aria-hidden />
+                    {f.text}
+                  </li>
+                ))}
+              </ul>
+              <AddToCartButton
+                productId={product.id}
+                name={product.name}
+                unitPrice={product.price}
+                variant={product.featured ? "primary" : "secondary"}
+                className="w-full"
+              />
+            </Card>
+          );
+        })}
       </div>
 
       <p className="flex items-center justify-center gap-2 pb-16 text-center text-sm text-text-dim">
         <Info className="size-4 shrink-0" aria-hidden />
-        Il carrello e i pagamenti reali arrivano nella Fase 5/10 della roadmap — questa è ancora una
-        vetrina statica dei prodotti.
+        I pagamenti reali arrivano nella Fase 10 della roadmap — per ora l&apos;ordine viene confermato
+        automaticamente per testare l&apos;intera pipeline.
       </p>
     </Container>
   );

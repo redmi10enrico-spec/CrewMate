@@ -2,13 +2,13 @@ import { notFound } from "next/navigation";
 import { Pencil } from "lucide-react";
 import { listHomeFeatures } from "@crewmate/db";
 import { Card } from "@crewmate/ui";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service";
 import { HomeFeatureForm } from "../_components/HomeFeatureForm";
 
 export default async function EditHomeFeaturePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const supabase = await createSupabaseServerClient();
-  const features = await listHomeFeatures(supabase);
+  const service = createServiceRoleClient();
+  const features = await listHomeFeatures(service);
   const feature = features.find((item) => item.id === id);
 
   if (!feature) {

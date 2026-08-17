@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { CartProvider } from "@/lib/cart-context";
 import "./globals.css";
 
 // Header/Footer leggono site_settings dal DB: senza revalidate resterebbero
@@ -19,9 +20,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="it">
       <body className="flex min-h-screen flex-col bg-bg-950 font-sans text-text antialiased">
-        <SiteHeader />
-        <main className="flex-1 pt-20">{children}</main>
-        <SiteFooter />
+        <CartProvider>
+          <SiteHeader />
+          <main className="flex-1 pt-20">{children}</main>
+          <SiteFooter />
+        </CartProvider>
       </body>
     </html>
   );

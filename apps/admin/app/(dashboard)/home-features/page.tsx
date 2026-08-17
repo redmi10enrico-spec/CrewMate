@@ -2,12 +2,14 @@ import Link from "next/link";
 import { Plus, Trash2 } from "lucide-react";
 import { listHomeFeatures } from "@crewmate/db";
 import { Badge, Button, DataTable, Switch, getIcon } from "@crewmate/ui";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service";
 import { deleteHomeFeatureAction, toggleHomeFeatureAction } from "./actions";
 
 export default async function HomeFeaturesPage() {
-  const supabase = await createSupabaseServerClient();
-  const features = await listHomeFeatures(supabase);
+  // Service role: la RLS pubblica mostra solo enabled = true, l'admin deve
+  // vedere anche le feature nascoste per poterle riattivare.
+  const service = createServiceRoleClient();
+  const features = await listHomeFeatures(service);
 
   return (
     <div className="mx-auto max-w-4xl px-8 py-16">

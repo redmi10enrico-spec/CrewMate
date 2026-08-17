@@ -2,12 +2,14 @@ import Link from "next/link";
 import { Plus, Trash2 } from "lucide-react";
 import { listServerModes } from "@crewmate/db";
 import { Badge, Button, DataTable, Switch, getIcon } from "@crewmate/ui";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service";
 import { deleteServerModeAction, toggleServerModeAction } from "./actions";
 
 export default async function ServerModesPage() {
-  const supabase = await createSupabaseServerClient();
-  const modes = await listServerModes(supabase);
+  // Service role: la RLS pubblica mostra solo enabled = true, l'admin deve
+  // vedere anche le modalità nascoste per poterle riattivare.
+  const service = createServiceRoleClient();
+  const modes = await listServerModes(service);
 
   return (
     <div className="mx-auto max-w-4xl px-8 py-16">

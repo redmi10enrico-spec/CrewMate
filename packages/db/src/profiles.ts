@@ -75,3 +75,58 @@ export async function createMcVerificationCode(
 
   return { code, expiresAt };
 }
+
+export type VerifyMcCodeResult =
+  | { status: "ok"; userId: string }
+  | { status: "invalid" }
+  | { status: "already_used" }
+  | { status: "expired" };
+
+/**
+ * Consuma un codice di verifica generato da createMcVerificationCode.
+ * Va chiamata solo con un client service-role (bypassa la RLS): il
+ * chiamante previsto è l'endpoint server-to-server /api/mc-verify, mai
+ * il client di un utente autenticato.
+ */
+export async function verifyMcCode(
+  client: SupabaseClient<Database>,
+  code: string,
+  mcUuid?: string
+): Promise<VerifyMcCodeResult> {
+  const { data: codeRow, error: lookupError } = await client
+    .from("mc_verification_codes")
+    .select("id, user_id, expires_at, used")
+    .eq("code", code)
+    .maybeSingle();
+
+  if (lookupError) {
+    throw new Error(`verifyMcCode: ${lookupError.message}`);
+  }
+  if (!codeRow) {
+    return { status: "invalid" };
+  }
+  if (codeRow.used) {
+    return { status: "already_used" };
+  }
+  if (new Date(codeRow.expires_at).getTime() < Date.now()) {
+    return { status: "expired" };
+  }
+
+  const { error: markUsedError } = await client
+    .from("mc_verification_codes")
+    .update({ used: true })
+    .eq("id", codeRow.id);
+  if (markUsedError) {
+    throw new Error(`verifyMcCode: ${markUsedError.message}`);
+  }
+
+  const { error: profileError } = await client
+    .from("profiles")
+    .update({ mc_verified: true, ...(mcUuid ? { mc_uuid: mcUuid } : {}) })
+    .eq("id", codeRow.user_id);
+  if (profileError) {
+    throw new Error(`verifyMcCode: ${profileError.message}`);
+  }
+
+  return { status: "ok", userId: codeRow.user_id };
+}

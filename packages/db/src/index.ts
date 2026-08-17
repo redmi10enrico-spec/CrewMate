@@ -8,5 +8,6 @@ export {
   getProfile,
   hasRoleAtLeast,
   updateMcUsername,
+  verifyMcCode,
 } from "./profiles";
-export type { CreatedVerificationCode, ProfileRow } from "./profiles";
+export type { CreatedVerificationCode, ProfileRow, VerifyMcCodeResult } from "./profiles";

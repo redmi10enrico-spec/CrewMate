@@ -24,3 +24,8 @@ export type { FormFieldProps } from "./components/FormField";
 
 export { Spinner } from "./components/Spinner";
 export type { SpinnerProps } from "./components/Spinner";
+
+export { Alert } from "./components/Alert";
+export type { AlertProps, AlertTone } from "./components/Alert";
+
+export { getIcon, ICON_REGISTRY } from "./icons";

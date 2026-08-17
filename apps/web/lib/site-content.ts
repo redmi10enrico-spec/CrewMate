@@ -56,29 +56,29 @@ const DEFAULT_SERVER_MODES: ServerModeContent[] = [
     name: "Survival",
     slug: "survival",
     description: "Sopravvivi, costruisci ed esplora un mondo persistente con economia e protezioni.",
-    icon: "⛏️",
+    icon: "pickaxe",
   },
   {
     id: "default-skyblock",
     name: "SkyBlock",
     slug: "skyblock",
     description: "Parti da un'isola nel vuoto e crea il tuo impero passo dopo passo.",
-    icon: "🏝️",
+    icon: "mountain",
   },
   {
     id: "default-minigames",
     name: "Minigames",
     slug: "minigames",
     description: "Sfida gli altri giocatori in tante modalità competitive e frenetiche.",
-    icon: "⚔️",
+    icon: "swords",
   },
 ];
 
 const DEFAULT_HOME_FEATURES: HomeFeatureContent[] = [
-  { id: "default-anti-cheat", title: "Anti-Cheat", description: "Protezione avanzata contro cheater e griefer.", icon: "🛡️" },
-  { id: "default-community", title: "Community", description: "Staff attivo e giocatori accoglienti.", icon: "🤝" },
-  { id: "default-performance", title: "Performance", description: "Hardware potente per zero lag.", icon: "⚡" },
-  { id: "default-eventi", title: "Eventi", description: "Eventi settimanali con premi esclusivi.", icon: "🎁" },
+  { id: "default-anti-cheat", title: "Anti-Cheat", description: "Protezione avanzata contro cheater e griefer.", icon: "shield-check" },
+  { id: "default-community", title: "Community", description: "Staff attivo e giocatori accoglienti.", icon: "users" },
+  { id: "default-performance", title: "Performance", description: "Hardware potente per zero lag.", icon: "zap" },
+  { id: "default-eventi", title: "Eventi", description: "Eventi settimanali con premi esclusivi.", icon: "gift" },
 ];
 
 const DEFAULT_HOME_CONTENT: HomeContent = {

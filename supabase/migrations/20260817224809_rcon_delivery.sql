@@ -6,7 +6,8 @@ create table public.product_commands (
   id uuid primary key default gen_random_uuid(),
   product_id uuid not null references public.products (id) on delete cascade,
   command text not null,
-  "order" integer not null default 0
+  "order" integer not null default 0,
+  unique (product_id, command)
 );
 
 create index product_commands_product_id_idx on public.product_commands (product_id);

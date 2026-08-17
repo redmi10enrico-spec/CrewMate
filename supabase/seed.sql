@@ -80,3 +80,22 @@ with feat as (
 insert into public.product_features (product_id, text, "order")
 select product_id, text, ord from feat
 on conflict (product_id, text) do nothing;
+
+-- Comandi RCON eseguiti alla consegna (placeholder: adattali ai plugin
+-- reali del server, es. LuckPerms per i ranghi).
+with cmd as (
+  select p.id as product_id, c.command, c.ord
+  from public.products p
+  join (values
+    ('VIP', 'lp user {player} parent add vip', 1),
+    ('MVP', 'lp user {player} parent add mvp', 1),
+    ('ELITE', 'lp user {player} parent add elite', 1),
+    ('Kit Guerriero', 'give {player} diamond_sword 1', 1),
+    ('Kit Guerriero', 'give {player} diamond_chestplate 1', 2),
+    ('Kit Minatore', 'give {player} diamond_pickaxe{Enchantments:[{id:fortune,lvl:3}]} 1', 1),
+    ('Pacchetto Particelle', 'lp user {player} permission set crewmate.cosmetics.particles true', 1)
+  ) as c(product_name, command, ord) on c.product_name = p.name
+)
+insert into public.product_commands (product_id, command, "order")
+select product_id, command, ord from cmd
+on conflict (product_id, command) do nothing;

@@ -4,10 +4,12 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import {
   deleteProduct,
+  deleteProductCommand,
   deleteProductFeature,
   logAdminAction,
   setProductEnabled,
   upsertProduct,
+  upsertProductCommand,
   upsertProductFeature,
 } from "@crewmate/db";
 import { requireAdminUser } from "@/lib/auth";
@@ -107,6 +109,45 @@ export async function deleteProductFeatureAction(formData: FormData) {
     adminId: user.id,
     action: "delete",
     entity: "product_features",
+    entityId: id,
+  });
+
+  revalidatePath(`/prodotti/${productId}`);
+}
+
+export async function addProductCommandAction(formData: FormData) {
+  const user = await requireAdminUser();
+  const productId = String(formData.get("product_id") ?? "");
+  const command = String(formData.get("command") ?? "").trim();
+  const order = Number(formData.get("order") ?? 0);
+
+  if (command) {
+    const service = createServiceRoleClient();
+    const saved = await upsertProductCommand(service, { product_id: productId, command, order });
+    await logAdminAction(service, {
+      adminId: user.id,
+      action: "create",
+      entity: "product_commands",
+      entityId: saved.id,
+      diff: { command, order },
+    });
+    revalidatePath(`/prodotti/${productId}`);
+  }
+
+  redirect(`/prodotti/${productId}`);
+}
+
+export async function deleteProductCommandAction(formData: FormData) {
+  const user = await requireAdminUser();
+  const id = String(formData.get("id") ?? "");
+  const productId = String(formData.get("product_id") ?? "");
+
+  const service = createServiceRoleClient();
+  await deleteProductCommand(service, id);
+  await logAdminAction(service, {
+    adminId: user.id,
+    action: "delete",
+    entity: "product_commands",
     entityId: id,
   });
 

@@ -47,11 +47,26 @@ Servono per collegare le fasi successive a un progetto reale.
 3. Configura il provider Discord in Supabase (*Authentication →
    Providers → Discord*) con questi stessi valori.
 
-## 4. RCON (per la Fase 6)
+## 4. RCON (consegna acquisti, Fase 6)
 
-Non serve ancora in questa fase. Quando il server Minecraft sarà pronto
-per i test di consegna, compila `RCON_HOST`, `RCON_PORT`,
-`RCON_PASSWORD` in `apps/admin/.env.local`.
+1. Sul server Minecraft, abilita RCON in `server.properties`:
+   ```
+   enable-rcon=true
+   rcon.port=25575
+   rcon.password=<scegli-una-password-sicura>
+   ```
+2. Compila in `apps/admin/.env.local`: `RCON_HOST` (IP del server),
+   `RCON_PORT` (25575 di default), `RCON_PASSWORD`.
+3. Configura i comandi di consegna per ogni prodotto dal pannello
+   admin (*Prodotti → apri un prodotto → Comandi RCON di consegna*),
+   usando `{player}`/`{uuid}` come segnaposto. Il seed
+   (`supabase/seed.sql`) include comandi di esempio da adattare ai
+   plugin reali del tuo server (es. LuckPerms per i ranghi).
+4. La consegna parte automaticamente quando un ordine passa a
+   `paid` (oggi: subito dopo il checkout, in simulazione — vedi
+   `apps/admin/app/api/orders/simulate-payment`). In caso di errore
+   (server offline, comando fallito) l'ordine resta ri-consegnabile
+   manualmente dalla pagina di dettaglio ordine nel pannello admin.
 
 ## 5. Verifica nome Minecraft (per il plugin/comando `/verify`)
 

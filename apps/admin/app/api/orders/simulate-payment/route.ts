@@ -2,13 +2,15 @@ import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import type { Database } from "@crewmate/db";
 import { markOrderPaid } from "@crewmate/db";
+import { deliverOrder } from "@/lib/delivery";
 
 /**
- * Endpoint server-to-server che conferma il pagamento di un ordine.
- * Oggi viene chiamato subito dopo il checkout in apps/web per simulare
- * un pagamento riuscito (nessun gateway reale ancora collegato). In
- * Fase 10 lo stesso punto verrà richiamato dal webhook del gateway di
- * pagamento vero, senza cambiare la logica di dominio (markOrderPaid).
+ * Endpoint server-to-server che conferma il pagamento di un ordine e ne
+ * avvia la consegna via RCON. Oggi viene chiamato subito dopo il
+ * checkout in apps/web per simulare un pagamento riuscito (nessun
+ * gateway reale ancora collegato). In Fase 10 lo stesso punto verrà
+ * richiamato dal webhook del gateway di pagamento vero, senza cambiare
+ * la logica di dominio (markOrderPaid + deliverOrder).
  */
 export async function POST(request: Request) {
   const secret = request.headers.get("x-order-simulate-secret");
@@ -31,5 +33,7 @@ export async function POST(request: Request) {
   const supabase = createClient<Database>(supabaseUrl, serviceRoleKey);
   await markOrderPaid(supabase, orderId);
 
-  return NextResponse.json({ success: true });
+  const delivery = await deliverOrder(orderId);
+
+  return NextResponse.json({ success: true, delivered: delivery.delivered, reason: delivery.reason });
 }

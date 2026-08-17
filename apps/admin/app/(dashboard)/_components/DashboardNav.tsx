@@ -7,6 +7,7 @@ import {
   Gamepad2,
   LayoutDashboard,
   ListTree,
+  MessagesSquare,
   Package,
   Palette,
   Receipt,
@@ -41,6 +42,10 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
   {
     label: "Candidature",
     items: [{ href: "/candidature", label: "Moduli & Revisione", icon: ClipboardList }],
+  },
+  {
+    label: "Forum",
+    items: [{ href: "/forum", label: "Categorie & Moderazione", icon: MessagesSquare }],
   },
 ];
 

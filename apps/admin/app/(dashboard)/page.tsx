@@ -1,5 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, ClipboardList, Gamepad2, ListTree, Package, Palette, Receipt, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  ClipboardList,
+  Gamepad2,
+  ListTree,
+  MessagesSquare,
+  Package,
+  Palette,
+  Receipt,
+  Sparkles,
+} from "lucide-react";
 import { Card } from "@crewmate/ui";
 
 const SECTIONS = [
@@ -44,6 +54,12 @@ const SECTIONS = [
     icon: ClipboardList,
     title: "Candidature",
     description: "Moduli di candidatura e revisione delle candidature ricevute.",
+  },
+  {
+    href: "/forum",
+    icon: MessagesSquare,
+    title: "Forum",
+    description: "Categorie con permessi per ruolo e moderazione discussioni.",
   },
 ];
 

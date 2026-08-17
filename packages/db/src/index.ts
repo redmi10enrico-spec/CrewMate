@@ -1,6 +1,6 @@
 export { createSupabaseClient } from "./client";
 export type { SupabaseEnv } from "./client";
-export type { AppRole, Database, OrderStatus } from "./database.types";
+export type { AppRole, ApplicationStatus, Database, OrderStatus, QuestionType } from "./database.types";
 
 export {
   createMcVerificationCode,
@@ -73,3 +73,33 @@ export {
   upsertProductCommand,
 } from "./delivery";
 export type { DeliveryLogInput, DeliveryLogRow, ProductCommandInput, ProductCommandRow } from "./delivery";
+
+export {
+  deleteApplicationForm,
+  deleteApplicationQuestion,
+  getApplicationAnswers,
+  getApplicationById,
+  getApplicationForms,
+  getApplicationQuestions,
+  getUserApplication,
+  listAllApplications,
+  listApplicationForms,
+  listUserApplications,
+  reviewApplication,
+  setApplicationFormEnabled,
+  submitApplication,
+  upsertApplicationForm,
+  upsertApplicationQuestion,
+} from "./applications";
+export type {
+  AnswerInput,
+  ApplicationAnswerRow,
+  ApplicationAnswerWithQuestion,
+  ApplicationFormInput,
+  ApplicationFormRow,
+  ApplicationQuestionInput,
+  ApplicationQuestionRow,
+  ApplicationRow,
+  ApplicationWithForm,
+  ReviewApplicationInput,
+} from "./applications";

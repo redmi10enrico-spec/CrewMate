@@ -7,6 +7,8 @@
 
 export type AppRole = "user" | "helper" | "mod" | "admin";
 export type OrderStatus = "pending" | "paid" | "delivered" | "failed" | "refunded";
+export type QuestionType = "text" | "textarea" | "number" | "select" | "radio" | "checkbox";
+export type ApplicationStatus = "pending" | "interview" | "accepted" | "rejected";
 
 export interface Database {
   public: {
@@ -365,12 +367,134 @@ export interface Database {
         };
         Relationships: [];
       };
+      application_forms: {
+        Row: {
+          id: string;
+          role_name: string;
+          slug: string;
+          description: string;
+          enabled: boolean;
+          is_open: boolean;
+          order: number;
+        };
+        Insert: {
+          id?: string;
+          role_name: string;
+          slug: string;
+          description?: string;
+          enabled?: boolean;
+          is_open?: boolean;
+          order?: number;
+        };
+        Update: {
+          id?: string;
+          role_name?: string;
+          slug?: string;
+          description?: string;
+          enabled?: boolean;
+          is_open?: boolean;
+          order?: number;
+        };
+        Relationships: [];
+      };
+      application_questions: {
+        Row: {
+          id: string;
+          form_id: string;
+          label: string;
+          type: QuestionType;
+          options: unknown;
+          required: boolean;
+          placeholder: string | null;
+          hint: string | null;
+          order: number;
+        };
+        Insert: {
+          id?: string;
+          form_id: string;
+          label: string;
+          type?: QuestionType;
+          options?: unknown;
+          required?: boolean;
+          placeholder?: string | null;
+          hint?: string | null;
+          order?: number;
+        };
+        Update: {
+          id?: string;
+          form_id?: string;
+          label?: string;
+          type?: QuestionType;
+          options?: unknown;
+          required?: boolean;
+          placeholder?: string | null;
+          hint?: string | null;
+          order?: number;
+        };
+        Relationships: [];
+      };
+      applications: {
+        Row: {
+          id: string;
+          form_id: string;
+          user_id: string;
+          status: ApplicationStatus;
+          created_at: string;
+          reviewed_by: string | null;
+          reviewed_at: string | null;
+          notes: string | null;
+        };
+        Insert: {
+          id?: string;
+          form_id: string;
+          user_id: string;
+          status?: ApplicationStatus;
+          created_at?: string;
+          reviewed_by?: string | null;
+          reviewed_at?: string | null;
+          notes?: string | null;
+        };
+        Update: {
+          id?: string;
+          form_id?: string;
+          user_id?: string;
+          status?: ApplicationStatus;
+          created_at?: string;
+          reviewed_by?: string | null;
+          reviewed_at?: string | null;
+          notes?: string | null;
+        };
+        Relationships: [];
+      };
+      application_answers: {
+        Row: {
+          id: string;
+          application_id: string;
+          question_id: string;
+          value: string;
+        };
+        Insert: {
+          id?: string;
+          application_id: string;
+          question_id: string;
+          value?: string;
+        };
+        Update: {
+          id?: string;
+          application_id?: string;
+          question_id?: string;
+          value?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
     Enums: {
       app_role: AppRole;
       order_status: OrderStatus;
+      question_type: QuestionType;
+      application_status: ApplicationStatus;
     };
     CompositeTypes: Record<string, never>;
   };

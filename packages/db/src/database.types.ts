@@ -6,6 +6,7 @@
 // fonte di verità).
 
 export type AppRole = "user" | "helper" | "mod" | "admin";
+export type OrderStatus = "pending" | "paid" | "delivered" | "failed" | "refunded";
 
 export interface Database {
   public: {
@@ -175,11 +176,153 @@ export interface Database {
         };
         Relationships: [];
       };
+      product_categories: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          order: number;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          order?: number;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          slug?: string;
+          order?: number;
+        };
+        Relationships: [];
+      };
+      products: {
+        Row: {
+          id: string;
+          category_id: string | null;
+          name: string;
+          description: string;
+          price: number;
+          currency: string;
+          image_url: string | null;
+          featured: boolean;
+          enabled: boolean;
+          order: number;
+          stock: number | null;
+        };
+        Insert: {
+          id?: string;
+          category_id?: string | null;
+          name: string;
+          description?: string;
+          price: number;
+          currency?: string;
+          image_url?: string | null;
+          featured?: boolean;
+          enabled?: boolean;
+          order?: number;
+          stock?: number | null;
+        };
+        Update: {
+          id?: string;
+          category_id?: string | null;
+          name?: string;
+          description?: string;
+          price?: number;
+          currency?: string;
+          image_url?: string | null;
+          featured?: boolean;
+          enabled?: boolean;
+          order?: number;
+          stock?: number | null;
+        };
+        Relationships: [];
+      };
+      product_features: {
+        Row: {
+          id: string;
+          product_id: string;
+          text: string;
+          order: number;
+        };
+        Insert: {
+          id?: string;
+          product_id: string;
+          text: string;
+          order?: number;
+        };
+        Update: {
+          id?: string;
+          product_id?: string;
+          text?: string;
+          order?: number;
+        };
+        Relationships: [];
+      };
+      orders: {
+        Row: {
+          id: string;
+          user_id: string;
+          status: OrderStatus;
+          total: number;
+          currency: string;
+          created_at: string;
+          paid_at: string | null;
+          delivered_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          status?: OrderStatus;
+          total: number;
+          currency?: string;
+          created_at?: string;
+          paid_at?: string | null;
+          delivered_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          status?: OrderStatus;
+          total?: number;
+          currency?: string;
+          created_at?: string;
+          paid_at?: string | null;
+          delivered_at?: string | null;
+        };
+        Relationships: [];
+      };
+      order_items: {
+        Row: {
+          id: string;
+          order_id: string;
+          product_id: string | null;
+          unit_price: number;
+          quantity: number;
+        };
+        Insert: {
+          id?: string;
+          order_id: string;
+          product_id?: string | null;
+          unit_price: number;
+          quantity?: number;
+        };
+        Update: {
+          id?: string;
+          order_id?: string;
+          product_id?: string | null;
+          unit_price?: number;
+          quantity?: number;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
     Enums: {
       app_role: AppRole;
+      order_status: OrderStatus;
     };
     CompositeTypes: Record<string, never>;
   };

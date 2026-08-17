@@ -1,6 +1,6 @@
 export { createSupabaseClient } from "./client";
 export type { SupabaseEnv } from "./client";
-export type { AppRole, Database } from "./database.types";
+export type { AppRole, Database, OrderStatus } from "./database.types";
 
 export {
   createMcVerificationCode,
@@ -30,3 +30,29 @@ export type { HomeFeatureInput, HomeFeatureRow, ServerModeInput, ServerModeRow }
 
 export { logAdminAction } from "./audit-log";
 export type { AdminActionInput } from "./audit-log";
+
+export {
+  deleteProduct,
+  deleteProductCategory,
+  deleteProductFeature,
+  getEnabledProductsWithFeatures,
+  getProductCategories,
+  listProductFeatures,
+  listProducts,
+  setProductEnabled,
+  upsertProduct,
+  upsertProductCategory,
+  upsertProductFeature,
+} from "./shop";
+export type {
+  ProductCategoryInput,
+  ProductCategoryRow,
+  ProductFeatureInput,
+  ProductFeatureRow,
+  ProductInput,
+  ProductRow,
+  ProductWithFeatures,
+} from "./shop";
+
+export { createPendingOrder, listAllOrders, listUserOrders, markOrderPaid } from "./orders";
+export type { CartLine, OrderItemRow, OrderRow } from "./orders";

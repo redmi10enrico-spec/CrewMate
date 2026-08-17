@@ -116,6 +116,7 @@ export {
   getForumThreads,
   getLatestThreads,
   incrementThreadViews,
+  listAllForumThreads,
   replyToThread,
   setThreadLocked,
   setThreadPinned,
@@ -130,5 +131,6 @@ export type {
   ForumStats,
   ForumThreadRow,
   ForumThreadWithAuthor,
+  ForumThreadWithCategory,
   ReplyToThreadInput,
 } from "./forum";

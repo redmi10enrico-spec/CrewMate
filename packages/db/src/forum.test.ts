@@ -13,6 +13,7 @@ import {
   getForumThreads,
   getLatestThreads,
   incrementThreadViews,
+  listAllForumThreads,
   replyToThread,
   setThreadLocked,
   setThreadPinned,
@@ -287,5 +288,20 @@ describe("admin CRUD and moderation", () => {
 
     await deletePost(client, "post-1");
     expect(eq).toHaveBeenCalledWith("id", "post-1");
+  });
+});
+
+describe("listAllForumThreads", () => {
+  it("joins author and category, ordered by created_at desc", async () => {
+    const rows = [{ id: "1", forum_categories: { name: "Annunci" } }];
+    const order = vi.fn().mockResolvedValue({ data: rows, error: null });
+    const select = vi.fn().mockReturnValue({ order });
+    const from = vi.fn().mockReturnValue({ select });
+    const client = { from } as unknown as SupabaseClient<Database>;
+
+    const result = await listAllForumThreads(client);
+
+    expect(select).toHaveBeenCalledWith("*, profiles(id, mc_username, avatar_url), forum_categories(*)");
+    expect(result).toEqual(rows);
   });
 });

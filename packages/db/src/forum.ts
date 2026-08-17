@@ -210,6 +210,26 @@ export async function replyToThread(
 
 // --- Pannello admin (client service-role) --------------------------------
 
+export interface ForumThreadWithCategory extends ForumThreadWithAuthor {
+  forum_categories: ForumCategoryRow | null;
+}
+
+/** Tutti i thread di tutte le categorie, per la moderazione. */
+export async function listAllForumThreads(
+  client: SupabaseClient<Database>
+): Promise<ForumThreadWithCategory[]> {
+  const { data, error } = await client
+    .from("forum_threads")
+    .select("*, profiles(id, mc_username, avatar_url), forum_categories(*)")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(`listAllForumThreads: ${error.message}`);
+  }
+
+  return (data ?? []) as unknown as ForumThreadWithCategory[];
+}
+
 export async function upsertForumCategory(
   client: SupabaseClient<Database>,
   input: ForumCategoryInput

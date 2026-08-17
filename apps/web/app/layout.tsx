@@ -4,6 +4,11 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
+// Header/Footer leggono site_settings dal DB: senza revalidate resterebbero
+// statici al contenuto del build e le modifiche dal pannello admin non si
+// vedrebbero mai sul sito pubblico.
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "CrewMate Network — Server Minecraft",
   description:

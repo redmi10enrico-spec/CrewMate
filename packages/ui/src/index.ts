@@ -22,6 +22,12 @@ export type { InputProps } from "./components/Input";
 export { FormField } from "./components/FormField";
 export type { FormFieldProps } from "./components/FormField";
 
+export { Textarea } from "./components/Textarea";
+export type { TextareaProps } from "./components/Textarea";
+
+export { Select } from "./components/Select";
+export type { SelectProps } from "./components/Select";
+
 export { Spinner } from "./components/Spinner";
 export type { SpinnerProps } from "./components/Spinner";
 

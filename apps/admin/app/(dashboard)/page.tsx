@@ -1,5 +1,27 @@
-import { CheckCircle2, ClipboardList, ShieldCheck } from "lucide-react";
-import { Badge, Card } from "@crewmate/ui";
+import Link from "next/link";
+import { ArrowRight, Gamepad2, Palette, Sparkles } from "lucide-react";
+import { Card } from "@crewmate/ui";
+
+const SECTIONS = [
+  {
+    href: "/branding",
+    icon: Palette,
+    title: "Aspetto & Branding",
+    description: "Nome del sito, IP, link Discord e testi della Home.",
+  },
+  {
+    href: "/modalita-server",
+    icon: Gamepad2,
+    title: "Modalità di gioco",
+    description: "Le card della sezione \"Modalità di Gioco\" nella Home.",
+  },
+  {
+    href: "/home-features",
+    icon: Sparkles,
+    title: "Perché sceglierci",
+    description: "Le card della sezione \"Perché CrewMate?\" nella Home.",
+  },
+];
 
 export default function DashboardPage() {
   return (
@@ -7,27 +29,19 @@ export default function DashboardPage() {
       <h1 className="text-2xl font-semibold tracking-tight text-text">Dashboard</h1>
       <p className="mt-2 text-text-muted">Da qui gestirai tutti i contenuti del sito pubblico.</p>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2">
-        <Card icon={<ShieldCheck />} title="Accesso protetto">
-          <Badge tone="success" icon={<CheckCircle2 />}>
-            Attivo
-          </Badge>
-          <p className="mt-3">
-            Il pannello è raggiungibile solo da account con <code className="text-accent">role = admin</code>.
-          </p>
-        </Card>
-
-        <Card icon={<ClipboardList />} title="Audit log">
-          <Badge tone="success" icon={<CheckCircle2 />}>
-            Pronto
-          </Badge>
-          <p className="mt-3">Ogni modifica futura verrà tracciata con autore, entità e diff.</p>
-        </Card>
+      <div className="mt-10 grid gap-5 sm:grid-cols-3">
+        {SECTIONS.map((section) => (
+          <Link key={section.href} href={section.href}>
+            <Card interactive icon={<section.icon />} title={section.title}>
+              {section.description}
+              <span className="mt-3 flex items-center gap-1 text-sm font-medium text-accent">
+                Apri sezione
+                <ArrowRight className="size-4" aria-hidden />
+              </span>
+            </Card>
+          </Link>
+        ))}
       </div>
-
-      <p className="mt-10 text-sm text-text-dim">
-        Le prime sezioni editabili (aspetto del sito, modalità server) arrivano in Fase 4.
-      </p>
     </div>
   );
 }

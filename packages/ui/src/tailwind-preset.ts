@@ -31,6 +31,10 @@ export const tailwindPreset: Partial<Config> = {
         danger: "#ff5c5c",
         warning: "#ffcf5c",
         success: "#5fd35f",
+        border: {
+          DEFAULT: "rgba(63, 201, 255, 0.18)",
+          strong: "rgba(63, 201, 255, 0.4)",
+        },
       },
       borderRadius: {
         DEFAULT: "10px",

@@ -15,3 +15,9 @@ export type { SectionTitleProps } from "./components/SectionTitle";
 
 export { Badge } from "./components/Badge";
 export type { BadgeProps, BadgeTone } from "./components/Badge";
+
+export { Input } from "./components/Input";
+export type { InputProps } from "./components/Input";
+
+export { FormField } from "./components/FormField";
+export type { FormFieldProps } from "./components/FormField";

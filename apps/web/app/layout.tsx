@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,7 +13,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="it">
-      <body className="min-h-screen bg-bg-900 font-body text-text">{children}</body>
+      <body className="flex min-h-screen flex-col bg-bg-900 font-body text-text">
+        <SiteHeader />
+        <main className="flex-1 pt-20">{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

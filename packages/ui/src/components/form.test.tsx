@@ -10,6 +10,13 @@ describe("Input", () => {
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute("name", "email");
   });
+
+  it("applies invalid styling and aria-invalid when invalid", () => {
+    render(<Input placeholder="Email" invalid />);
+    const input = screen.getByPlaceholderText("Email");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input.className).toContain("border-danger");
+  });
 });
 
 describe("FormField", () => {

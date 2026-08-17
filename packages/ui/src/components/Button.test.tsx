@@ -19,4 +19,16 @@ describe("Button", () => {
       "border-accent"
     );
   });
+
+  it("disables the button and shows a spinner while loading", () => {
+    render(<Button loading>Salva</Button>);
+    const button = screen.getByRole("button", { name: "Salva" });
+    expect(button).toBeDisabled();
+    expect(button.querySelector("svg")).toBeInTheDocument();
+  });
+
+  it("stays enabled when not loading", () => {
+    render(<Button>Salva</Button>);
+    expect(screen.getByRole("button", { name: "Salva" })).not.toBeDisabled();
+  });
 });

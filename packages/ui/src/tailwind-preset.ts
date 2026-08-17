@@ -5,51 +5,85 @@ export const tailwindPreset: Partial<Config> = {
     extend: {
       colors: {
         bg: {
-          900: "#060d1c",
-          800: "#0a1428",
-          700: "#0d1c38",
-          600: "#122645",
+          950: "#03050a",
+          900: "#060910",
+          800: "#0a0e18",
+          700: "#10141f",
         },
         surface: {
-          DEFAULT: "#10203d",
-          alt: "#16294a",
+          DEFAULT: "#0d1220",
+          hover: "#121829",
+          alt: "#141a2b",
+        },
+        border: {
+          DEFAULT: "rgba(255, 255, 255, 0.08)",
+          hover: "rgba(255, 255, 255, 0.16)",
+          strong: "rgba(63, 201, 255, 0.4)",
         },
         accent: {
           DEFAULT: "#3fc9ff",
-          strong: "#1a8fd4",
-          soft: "rgba(63, 201, 255, 0.15)",
+          hover: "#63d4ff",
+          active: "#1a8fd4",
+          muted: "rgba(63, 201, 255, 0.12)",
         },
-        green: {
-          DEFAULT: "#5fd35f",
-          strong: "#3fae3f",
+        success: {
+          DEFAULT: "#4ade80",
+          muted: "rgba(74, 222, 128, 0.12)",
+        },
+        warning: {
+          DEFAULT: "#fbbf24",
+          muted: "rgba(251, 191, 36, 0.12)",
+        },
+        danger: {
+          DEFAULT: "#f87171",
+          muted: "rgba(248, 113, 113, 0.12)",
         },
         text: {
-          DEFAULT: "#e8f4ff",
-          muted: "#9fb3cc",
-          dim: "#6b7f99",
-        },
-        danger: "#ff5c5c",
-        warning: "#ffcf5c",
-        success: "#5fd35f",
-        border: {
-          DEFAULT: "rgba(63, 201, 255, 0.18)",
-          strong: "rgba(63, 201, 255, 0.4)",
+          DEFAULT: "#f4f6fb",
+          muted: "#9aa4b8",
+          dim: "#5b6478",
         },
       },
       borderRadius: {
-        DEFAULT: "10px",
-        lg: "16px",
+        sm: "8px",
+        DEFAULT: "12px",
+        lg: "20px",
       },
       boxShadow: {
-        DEFAULT: "0 8px 30px rgba(0, 0, 0, 0.45)",
-        glow: "0 0 24px rgba(63, 201, 255, 0.25)",
+        sm: "0 1px 2px rgba(0, 0, 0, 0.4)",
+        DEFAULT: "0 8px 24px rgba(0, 0, 0, 0.35)",
+        lg: "0 24px 64px rgba(0, 0, 0, 0.5)",
+        glow: "0 0 0 1px rgba(63, 201, 255, 0.15), 0 8px 24px rgba(63, 201, 255, 0.12)",
       },
       fontFamily: {
-        title: ['"Press Start 2P"', "Segoe UI", "system-ui", "sans-serif"],
-        body: ["Segoe UI", "system-ui", "-apple-system", "Roboto", "Helvetica", "Arial", "sans-serif"],
+        sans: [
+          "Inter",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
       },
       maxWidth: {
         site: "1180px",
+      },
+      keyframes: {
+        "fade-in": {
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.96)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.5s ease-out both",
+        "scale-in": "scale-in 0.2s ease-out both",
       },
     },
   },

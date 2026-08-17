@@ -21,3 +21,6 @@ export type { InputProps } from "./components/Input";
 
 export { FormField } from "./components/FormField";
 export type { FormFieldProps } from "./components/FormField";
+
+export { Spinner } from "./components/Spinner";
+export type { SpinnerProps } from "./components/Spinner";

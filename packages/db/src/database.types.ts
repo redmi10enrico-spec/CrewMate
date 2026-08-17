@@ -70,6 +70,81 @@ export interface Database {
         };
         Relationships: [];
       };
+      site_settings: {
+        Row: {
+          key: string;
+          value: unknown;
+        };
+        Insert: {
+          key: string;
+          value: unknown;
+        };
+        Update: {
+          key?: string;
+          value?: unknown;
+        };
+        Relationships: [];
+      };
+      server_modes: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          description: string;
+          icon: string;
+          image_url: string | null;
+          order: number;
+          enabled: boolean;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          description: string;
+          icon?: string;
+          image_url?: string | null;
+          order?: number;
+          enabled?: boolean;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          slug?: string;
+          description?: string;
+          icon?: string;
+          image_url?: string | null;
+          order?: number;
+          enabled?: boolean;
+        };
+        Relationships: [];
+      };
+      home_features: {
+        Row: {
+          id: string;
+          title: string;
+          description: string;
+          icon: string;
+          order: number;
+          enabled: boolean;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          description: string;
+          icon?: string;
+          order?: number;
+          enabled?: boolean;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          description?: string;
+          icon?: string;
+          order?: number;
+          enabled?: boolean;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

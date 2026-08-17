@@ -145,6 +145,36 @@ export interface Database {
         };
         Relationships: [];
       };
+      audit_logs: {
+        Row: {
+          id: string;
+          admin_id: string | null;
+          action: string;
+          entity: string;
+          entity_id: string | null;
+          diff: unknown;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          admin_id?: string | null;
+          action: string;
+          entity: string;
+          entity_id?: string | null;
+          diff?: unknown;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          admin_id?: string | null;
+          action?: string;
+          entity?: string;
+          entity_id?: string | null;
+          diff?: unknown;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

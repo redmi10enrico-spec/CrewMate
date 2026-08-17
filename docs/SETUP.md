@@ -16,9 +16,13 @@ Servono per collegare le fasi successive a un progetto reale.
 4. Compila `apps/web/.env.local` e `apps/admin/.env.local` copiando
    `.env.example` e incollando i valori reali (questi file sono già
    esclusi da git tramite `.gitignore`).
-5. Le tabelle del database (`profiles`, `products`, ecc. — vedi
-   `docs/BRIEF.md` §4) verranno create nella Fase 1 in poi, con le
-   relative migrazioni.
+5. Applica le migrazioni già scritte in `supabase/migrations/` (schema
+   `profiles`, ruoli, verifica MC — vedi
+   `docs/superpowers/specs/2026-08-17-fase1-auth-design.md`). Con la CLI
+   Supabase collegata al progetto: `npx supabase link --project-ref <ref>`
+   seguito da `npx supabase db push`. Le tabelle successive (prodotti,
+   forum, candidature — `docs/BRIEF.md` §4) arriveranno con nuove
+   migrazioni nelle fasi relative.
 
 ## 2. Vercel
 
@@ -48,3 +52,13 @@ Servono per collegare le fasi successive a un progetto reale.
 Non serve ancora in questa fase. Quando il server Minecraft sarà pronto
 per i test di consegna, compila `RCON_HOST`, `RCON_PORT`,
 `RCON_PASSWORD` in `apps/admin/.env.local`.
+
+## 5. Verifica nome Minecraft (per il plugin/comando `/verify`)
+
+L'endpoint `POST /api/mc-verify` in `apps/admin` conferma un codice di
+verifica generato dal sito. Genera un secret casuale (es.
+`openssl rand -hex 32`) e mettilo in `MC_VERIFY_SECRET` in
+`apps/admin/.env.local`. Il futuro plugin/comando lato server Minecraft
+(non ancora scritto, vedi `docs/BRIEF.md` §13) dovrà chiamare
+l'endpoint con lo stesso valore nell'header `X-Mc-Verify-Secret` e un
+body `{ "code": "...", "mcUuid": "..." }`.

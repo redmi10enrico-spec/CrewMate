@@ -487,9 +487,121 @@ export interface Database {
         };
         Relationships: [];
       };
+      forum_categories: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          description: string;
+          icon: string;
+          order: number;
+          min_role_view: AppRole;
+          min_role_post: AppRole;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          description?: string;
+          icon?: string;
+          order?: number;
+          min_role_view?: AppRole;
+          min_role_post?: AppRole;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          slug?: string;
+          description?: string;
+          icon?: string;
+          order?: number;
+          min_role_view?: AppRole;
+          min_role_post?: AppRole;
+        };
+        Relationships: [];
+      };
+      forum_threads: {
+        Row: {
+          id: string;
+          category_id: string;
+          author_id: string | null;
+          title: string;
+          slug: string;
+          pinned: boolean;
+          locked: boolean;
+          views: number;
+          created_at: string;
+          last_reply_at: string;
+        };
+        Insert: {
+          id?: string;
+          category_id: string;
+          author_id?: string | null;
+          title: string;
+          slug: string;
+          pinned?: boolean;
+          locked?: boolean;
+          views?: number;
+          created_at?: string;
+          last_reply_at?: string;
+        };
+        Update: {
+          id?: string;
+          category_id?: string;
+          author_id?: string | null;
+          title?: string;
+          slug?: string;
+          pinned?: boolean;
+          locked?: boolean;
+          views?: number;
+          created_at?: string;
+          last_reply_at?: string;
+        };
+        Relationships: [];
+      };
+      forum_posts: {
+        Row: {
+          id: string;
+          thread_id: string;
+          author_id: string | null;
+          content: string;
+          created_at: string;
+          edited_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          thread_id: string;
+          author_id?: string | null;
+          content: string;
+          created_at?: string;
+          edited_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          thread_id?: string;
+          author_id?: string | null;
+          content?: string;
+          created_at?: string;
+          edited_at?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      current_role_rank: {
+        Args: Record<string, never>;
+        Returns: number;
+      };
+      role_rank: {
+        Args: { r: AppRole };
+        Returns: number;
+      };
+      increment_thread_views: {
+        Args: { thread_id: string };
+        Returns: undefined;
+      };
+    };
     Enums: {
       app_role: AppRole;
       order_status: OrderStatus;

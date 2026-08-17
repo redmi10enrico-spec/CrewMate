@@ -103,3 +103,32 @@ export type {
   ApplicationWithForm,
   ReviewApplicationInput,
 } from "./applications";
+
+export {
+  createThread,
+  deleteForumCategory,
+  deletePost,
+  deleteThread,
+  getForumCategories,
+  getForumPosts,
+  getForumStats,
+  getForumThreadBySlug,
+  getForumThreads,
+  getLatestThreads,
+  incrementThreadViews,
+  replyToThread,
+  setThreadLocked,
+  setThreadPinned,
+  upsertForumCategory,
+} from "./forum";
+export type {
+  CreateThreadInput,
+  ForumCategoryInput,
+  ForumCategoryRow,
+  ForumPostRow,
+  ForumPostWithAuthor,
+  ForumStats,
+  ForumThreadRow,
+  ForumThreadWithAuthor,
+  ReplyToThreadInput,
+} from "./forum";

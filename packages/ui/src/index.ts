@@ -28,4 +28,10 @@ export type { SpinnerProps } from "./components/Spinner";
 export { Alert } from "./components/Alert";
 export type { AlertProps, AlertTone } from "./components/Alert";
 
+export { DataTable } from "./components/DataTable";
+export type { DataTableColumn, DataTableProps } from "./components/DataTable";
+
+export { Switch } from "./components/Switch";
+export type { SwitchProps } from "./components/Switch";
+
 export { getIcon, ICON_REGISTRY } from "./icons";
